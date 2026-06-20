@@ -1,9 +1,7 @@
 plugins {
-    // This plugin applies the correct loom variant based on the Minecraft version
     id("dev.kikugie.loom-back-compat")
 }
 
-// DO NOT set group = ...!
 version = "${property("mod.version")}+${sc.current.version}"
 base.archivesName = property("mod.id") as String
 
@@ -15,56 +13,85 @@ val requiredJava: JavaVersion = when {
     else -> JavaVersion.VERSION_1_8
 }
 
-// This can be used for publishing on Modrinth and Curseforge
 val compatibleVersions: List<String> = sc.properties.rawOrNull("mod", "mc_releases")
     ?.asList().orEmpty().map { it.toString() }
 
 repositories {
-    /**
-     * Restricts dependency search of the given [groups] to the [maven URL][url],
-     * improving the setup speed.
-     */
+    mavenCentral()
+
     fun strictMaven(url: String, alias: String, vararg groups: String) = exclusiveContent {
         forRepository { maven(url) { name = alias } }
         filter { groups.forEach(::includeGroup) }
     }
     strictMaven("https://www.cursemaven.com", "CurseForge", "curse.maven")
     strictMaven("https://api.modrinth.com/maven", "Modrinth", "maven.modrinth")
+
+    flatDir {
+        dirs("lib")
+    }
 }
 
 dependencies {
-    /**
-     * Fetches only the required Fabric API modules to not waste time downloading all of them for each version.
-     * @see <a href="https://github.com/FabricMC/fabric">List of Fabric API modules</a>
-     */
     fun fapi(vararg modules: String) {
         for (it in modules) modImplementation(fabricApi.module(it, sc.properties["deps.fabric_api"]))
     }
 
     minecraft("com.mojang:minecraft:${sc.current.version}")
-    // Applies Mojang Mappings on obfuscated versions
     loomx.applyMojangMappings()
 
     modImplementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
-    fapi("fabric-lifecycle-events-v1", "fabric-resource-loader-v0", "fabric-content-registries-v0", "fabric-registry-sync-v0")
+    fapi("fabric-lifecycle-events-v1", "fabric-resource-loader-v0", "fabric-content-registries-v0", "fabric-registry-sync-v0", "fabric-message-api-v1")
+
+    fun includeImplementation(
+        notation: String,
+        configure: (ExternalModuleDependency.() -> Unit)? = null
+    ) {
+        val dep = create(notation) as ExternalModuleDependency
+        configure?.invoke(dep)
+        add("implementation", dep)
+        add("include", dep)
+    }
+
+    // Discord IPC - LOCAL JAR ONLY (jagrosh is not on any Maven repo)
+    val discordJar = files(rootProject.file("lib/DiscordIPC-0.10.2.jar"))
+    modImplementation(discordJar)
+    include(discordJar)
+
+    // Junixsocket
+    implementation("com.kohlschutter.junixsocket:junixsocket-common:2.6.0")
+    implementation("com.kohlschutter.junixsocket:junixsocket-native-common:2.6.0")
+    implementation("com.kohlschutter.junixsocket:junixsocket-core:2.6.0")
+
+    val imguiVersion: String = findProperty("imgui_version") as? String ?: "1.86.11"
+
+    includeImplementation("io.github.spair:imgui-java-binding:$imguiVersion")
+
+    includeImplementation("io.github.spair:imgui-java-lwjgl3:$imguiVersion") {
+        exclude(group = "org.lwjgl")
+        exclude(group = "org.lwjgl.lwjgl")
+    }
+
+    includeImplementation("io.github.spair:imgui-java-natives-windows:$imguiVersion")
+    includeImplementation("io.github.spair:imgui-java-natives-linux:$imguiVersion")
+    includeImplementation("io.github.spair:imgui-java-natives-macos:$imguiVersion")
 }
 
 loom {
-    fabricModJsonPath = rootProject.file("src/main/resources/fabric.mod.json") // Useful for interface injection
+    fabricModJsonPath = rootProject.file("src/main/resources/fabric.mod.json")
     accessWidenerPath = sc.process(
         rootProject.file("src/main/resources/nyra.ct"),
         "build/processed.ct"
     )
 
     decompilerOptions.named("vineflower") {
-        options.put("mark-corresponding-synthetics", "1") // Adds names to lambdas - useful for mixins
+        options.put("mark-corresponding-synthetics", "1")
     }
 
     runConfigs.all {
         preferGradleTask = true
         generateRunConfig = true
-        runDirectory = rootProject.file("run") // Shares the run directory between versions
-        jvmArguments.add("-Dmixin.debug.export=true") // Exports transformed classes for debugging
+        runDirectory = rootProject.file("run")
+        jvmArguments.add("-Dmixin.debug.export=true")
     }
 }
 
@@ -100,11 +127,8 @@ tasks {
         filesMatching("*.mixins.json") { expand("java" to mixinJava) }
     }
 
-    // Builds the version into a shared folder in `build/libs/${mod version}/`
     register<Copy>("buildAndCollect") {
         group = "build"
-
-        // loomx.mod(Sources)Jar returns the jar task for the applied loom variant
         from(loomx.modJar.map { it.archiveFile }, loomx.modSourcesJar.map { it.archiveFile })
         into(rootProject.layout.buildDirectory.file("libs/${project.property("mod.version")}"))
         dependsOn("build")
@@ -112,8 +136,6 @@ tasks {
 
     register<Copy>("collectBuilds") {
         group = "build"
-
-        // loomx.mod(Sources)Jar returns the jar task for the applied loom variant
         from(loomx.modJar.map { it.archiveFile }, loomx.modSourcesJar.map { it.archiveFile })
         into(rootProject.layout.buildDirectory.file("libs/${project.property("mod.version")}"))
     }
