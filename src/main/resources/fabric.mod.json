@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "${id}",
+  "version": "${version}",
+  "name": "${name}",
+  "description": "Nyra client is an cheating client focused on open sourcing, security and contributions from the community",
+  "authors": [
+    "constt"
+  ],
+  "contact": {
+    "homepage": "https://constt.de",
+    "sources": "https://github.com/constttdev/nyra-client"
+  },
+  "license": "CC0-1.0",
+  "icon": "assets/nyra/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "de.constt.nyra.client.NyraMod"
+    ]
+  },
+  "mixins": [
+    "nyra.mixins.json"
+  ],
+  "accessWidener": "nyra.ct",
+  "depends": {
+    "fabricloader": ">=0.17",
+    "minecraft": "${minecraft}"
+  }
+}
