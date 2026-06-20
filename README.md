@@ -1,5 +1,5 @@
 <p align="center">
-    <img style="border-radius: 50px;" src="https://raw.githubusercontent.com/constttdev/Nyra-Client/refs/heads/main/assets/images/logo-1600.png" alt="Nyra Client Logo" width="20%"/>
+    <img style="border-radius: 50px;" src="https://raw.githubusercontent.com/constttdev/Nyra-Client/refs/heads/master/assets/images/logo-1600.png" alt="Nyra Client Logo" width="50%"/>
 </p>
 
 <h1 align="center">Nyra Client</h1>
