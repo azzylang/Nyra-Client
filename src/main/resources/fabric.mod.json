@@ -12,7 +12,7 @@
     "sources": "https://github.com/constttdev/nyra-client"
   },
   "license": "CC0-1.0",
-  "icon": "assets/nyra/icon.png",
+  "icon": "assets/nyra/logo-64.png",
   "environment": "*",
   "entrypoints": {
     "main": [
