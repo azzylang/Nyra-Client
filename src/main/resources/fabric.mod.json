@@ -15,7 +15,7 @@
   "icon": "assets/nyra/logo-64.png",
   "environment": "*",
   "entrypoints": {
-    "main": [
+    "client": [
       "de.constt.nyra.client.NyraMod"
     ]
   },
