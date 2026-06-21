@@ -2,16 +2,11 @@ package de.constt.nyra.client;
 
 import com.jagrosh.discordipc.IPCClient;
 import de.constt.nyra.client.discordRpc.DiscordIPCCore;
-import de.constt.nyra.client.impl.ImGuiImpl;
-import de.constt.nyra.client.impl.RenderInterface;
 import de.constt.nyra.client.managers.EventManager;
 import de.constt.nyra.client.utils.InstanceUtils;
 import de.constt.nyra.client.utils.MessageUtils;
-import de.constt.nyra.client.utils.WindowUtils;
-import imgui.ImGui;
 import net.fabricmc.api.ClientModInitializer;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +22,6 @@ public class NyraMod implements ClientModInitializer {
 
         // -- Variable Setting --
         MessageUtils.setPrefix("Nyra");
-        WindowUtils.setWindowTitle(String.format("Nyra | CL V. %s | MC V. %s | #%s", VERSION, MINECRAFT, InstanceUtils.getInstanceId()));
 
         // -- Events --
         EventManager.registerEvents();
@@ -40,6 +34,11 @@ public class NyraMod implements ClientModInitializer {
         }
 
         DiscordIPCCore.start();
+
+        String title = "Nyra | CL V. " + VERSION + " | MC V. " + MINECRAFT + " | #" + InstanceUtils.getInstanceId();
+
+        ClientTickEvents.END_CLIENT_TICK.register(client -> client.getWindow().setTitle(title));
+
     }
 
     /**
@@ -48,7 +47,7 @@ public class NyraMod implements ClientModInitializer {
     public static Identifier id(String namespace, String path) {
         //? if <1.21 {
         /*return new Identifier(namespace, path);
-        *///?} else
+         *///?} else
         return Identifier.fromNamespaceAndPath(namespace, path);
     }
 }
