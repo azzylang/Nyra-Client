@@ -22,11 +22,9 @@ public class TitleUtils {
             LocalPlayer player = mc.player;
             if (player == null) return;
 
-            int fadeIn = 10;
-            int stay = 70;
-            int fadeOut = 20;
-
+            //~if <= 26.1.2 'gui.hud' -> 'gui'
             mc.gui.hud.setOverlayMessage(title, false); // shows it as overlay in client
+            //~if <= 26.1.2 'gui.hud' -> 'gui'
             mc.gui.hud.setOverlayMessage(subtitle, false); // subtitle
     }
 

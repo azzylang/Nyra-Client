@@ -58,7 +58,9 @@ public class PlayerUtils {
 
         // ── Game-profile completeness ──────────────────────────────────────
         var profile = player.getGameProfile();
+        //~if < 1.21.9 'name()' -> 'getName()'
         String name = profile.name();
+        //~if < 1.21.9 'id()' -> 'getId()'
         UUID   uuid = profile.id();
 
         if (name == null || name.isEmpty()) return true;
@@ -72,6 +74,7 @@ public class PlayerUtils {
         if (uuid.version() != 4) return true;
 
         // ── Skin properties (online players always have a textures property)
+        //~if < 1.21.9 'properties()' -> 'getProperties()'
         if (profile.properties().isEmpty()) return true;
 
         // ── Entity-state heuristics ────────────────────────────────────────
@@ -226,6 +229,8 @@ public class PlayerUtils {
         if (target == null) return false;
 
         GameProfile profile = target.getGameProfile();
+
+        //~if < 1.21.9 'id()' -> 'getId()'
         UUID uuid = profile.id();
 
         // Layer 1: UUID Version Check (v4 = online/random, v3 = offline/MD5)
@@ -235,10 +240,12 @@ public class PlayerUtils {
         if ((uuid.variant() & 2) == 0) return false;
 
         // Layer 3: Must have GameProfile properties (textures, etc.)
+        //~if < 1.21.9 'properties()' -> 'getProperties()'
         if (profile.properties().isEmpty()) return false;
 
         // Layer 4: Textures property must be signed by Mojang
         boolean hasSignedTextures = false;
+        //~if < 1.21.9 'properties()' -> 'getProperties()'
         for (Property prop : profile.properties().get("textures")) {
             if (prop.hasSignature() && prop.value() != null) {
                 hasSignedTextures = true;

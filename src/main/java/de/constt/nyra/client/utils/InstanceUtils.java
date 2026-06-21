@@ -1,4 +1,4 @@
-package eu.scalare.client.utils;
+package de.constt.nyra.client.utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +9,7 @@ public class InstanceUtils {
     public static int getInstanceId() {
         if (instanceId != null) return instanceId;
 
-        File dir = new File(System.getProperty("java.io.tmpdir"), "scalare_instances");
+        File dir = new File(System.getProperty("java.io.tmpdir"), "nyra_instances");
         dir.mkdirs();
 
         int id = 1;
