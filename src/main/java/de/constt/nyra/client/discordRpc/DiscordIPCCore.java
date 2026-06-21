@@ -35,6 +35,7 @@ public final class DiscordIPCCore {
                     RichPresence.Builder builder = new RichPresence.Builder()
                             .setActivityType(ActivityType.Playing)
                             .setState("Being Open Source")
+                            //~ if >=26.2 'name()' -> 'getName()'
                             .setDetails(SharedConstants.getCurrentVersion().name())
                             .setLargeImage("logo-1600")
                             .setStartTimestamp(OffsetDateTime.now().toEpochSecond());
