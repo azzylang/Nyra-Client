@@ -8,7 +8,7 @@
 # Links
 
 - Website: `comming soon...`
-- Discord: https://discord.gg/XpPtEwj7YF
+- Discord: https://discord.gg/DKq8B9VdUW
 - Ko-Fi: `comming soon...`
 
 # Contribution
