@@ -61,19 +61,6 @@ dependencies {
     implementation("com.kohlschutter.junixsocket:junixsocket-common:2.6.0")
     implementation("com.kohlschutter.junixsocket:junixsocket-native-common:2.6.0")
     implementation("com.kohlschutter.junixsocket:junixsocket-core:2.6.0")
-
-    val imguiVersion: String = findProperty("imgui_version") as? String ?: "1.86.11"
-
-    includeImplementation("io.github.spair:imgui-java-binding:$imguiVersion")
-
-    includeImplementation("io.github.spair:imgui-java-lwjgl3:$imguiVersion") {
-        exclude(group = "org.lwjgl")
-        exclude(group = "org.lwjgl.lwjgl")
-    }
-
-    includeImplementation("io.github.spair:imgui-java-natives-windows:$imguiVersion")
-    includeImplementation("io.github.spair:imgui-java-natives-linux:$imguiVersion")
-    includeImplementation("io.github.spair:imgui-java-natives-macos:$imguiVersion")
 }
 
 loom {

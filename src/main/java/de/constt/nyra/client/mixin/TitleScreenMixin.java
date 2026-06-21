@@ -21,8 +21,7 @@ public class TitleScreenMixin extends Screen {
     @Inject(method = "init", at = @At("RETURN"))
     public void render(CallbackInfo ci) {
         this.addRenderableWidget(Button.builder(Component.literal("ImGui Demo"), (button) -> {
-            //~ if < 26.1 'setScreenAndShow' -> 'setScreen'
-            Minecraft.getInstance().setScreenAndShow(new ExampleScreen(Component.literal("Example")));
+            Minecraft.getInstance().setScreenAndShow(new ExampleScreen());
         }).bounds(this.width - 75 - 3, 3, 70, 20).build());
     }
 }
