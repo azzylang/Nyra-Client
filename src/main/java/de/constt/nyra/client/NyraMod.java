@@ -5,7 +5,9 @@ import de.constt.nyra.client.discordRpc.DiscordIPCCore;
 import de.constt.nyra.client.impl.ImGuiImpl;
 import de.constt.nyra.client.impl.RenderInterface;
 import de.constt.nyra.client.managers.EventManager;
+import de.constt.nyra.client.utils.InstanceUtils;
 import de.constt.nyra.client.utils.MessageUtils;
+import de.constt.nyra.client.utils.WindowUtils;
 import imgui.ImGui;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.Minecraft;
@@ -25,6 +27,7 @@ public class NyraMod implements ClientModInitializer {
 
         // -- Variable Setting --
         MessageUtils.setPrefix("Nyra");
+        WindowUtils.setWindowTitle(String.format("Nyra | CL V. %s | MC V. %s | #%s", VERSION, MINECRAFT, InstanceUtils.getInstanceId()));
 
         // -- Events --
         EventManager.registerEvents();
