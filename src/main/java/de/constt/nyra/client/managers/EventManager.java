@@ -1,9 +1,9 @@
 package de.constt.nyra.client.managers;
 
-import de.constt.nyra.client.events.MessageListener;
+import de.constt.nyra.client.events.ClientReceiveMessageEvent;
 
 public class EventManager {
     public static void registerEvents() {
-        MessageListener.register();
+        ClientReceiveMessageEvent.register();
     }
 }
