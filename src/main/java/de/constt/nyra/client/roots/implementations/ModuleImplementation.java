@@ -1,8 +1,14 @@
 package de.constt.nyra.client.roots.implementations;
 
+import de.constt.nyra.client.roots.implementations.settings.BooleanSettingImplementation;
+import de.constt.nyra.client.utils.ModuleAnnotationUtils;
+import de.constt.nyra.client.utils.ModuleCacheUtils;
+import net.minecraft.network.protocol.Packet;
 import org.lwjgl.glfw.GLFW;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class ModuleImplementation {
 
