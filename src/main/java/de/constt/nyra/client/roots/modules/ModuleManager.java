@@ -1,6 +1,7 @@
 package de.constt.nyra.client.roots.modules;
 
 import de.constt.nyra.client.roots.implementations.ModuleImplementation;
+import de.constt.nyra.client.utils.ModuleCacheUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ public class ModuleManager {
     public static void init() {
         // MODULES
 
-        eu.scalare.client.utils.ModuleCacheUtils.loadAll();
+        ModuleCacheUtils.loadAll();
     }
 
     public static List<ModuleImplementation> getModules() {
