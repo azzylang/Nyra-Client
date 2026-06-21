@@ -19,6 +19,7 @@ public class ClientReceiveMessageEvent { // Fixed typo
             // Toggle ImGui GUI with command
             if (chatMSG.equalsIgnoreCase(".openGUI") || chatMSG.equalsIgnoreCase(".opengui")) {
                 Minecraft.getInstance().execute(() -> {
+                    //~if < 26.1 'setScreenAndShow' -> 'setScreen'
                     Minecraft.getInstance().setScreenAndShow(new de.constt.nyra.client.screens.ExampleScreen(Component.literal("ExampleScreen")));
                 });
                 MessageUtils.sendCSMessageSucess("Opening GUI..."); // Fixed typo: Sucess -> Success

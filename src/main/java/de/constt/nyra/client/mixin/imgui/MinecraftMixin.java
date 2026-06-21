@@ -21,6 +21,7 @@ public class MinecraftMixin {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     public void initImGui(GameConfig args, CallbackInfo ci) {
+        //~ if < 1.21.9 'handle()' -> 'getWindow()'
         ImGuiImpl.create(window.handle());
     }
 
