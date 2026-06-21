@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">Nyra Client</h1>
-<p align="center">A cheating client focused on open sourcing, security and contributions from the community</p>
+<p align="center">A utility mod focused on open sourcing, security and contributions from the community</p>
 
 # Links
 
