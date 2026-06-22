@@ -1,7 +1,5 @@
 package de.constt.nyra.client.mixin;
 
-import de.constt.nyra.client.screens.ExampleScreen;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
