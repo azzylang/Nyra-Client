@@ -1,4 +1,4 @@
-package eu.scalare.client.utils;
+package de.constt.nyra.client.utils;
 
 import java.awt.*;
 import java.io.IOException;
