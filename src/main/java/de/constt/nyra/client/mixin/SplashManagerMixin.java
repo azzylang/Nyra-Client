@@ -32,5 +32,4 @@ public abstract class SplashManagerMixin {
                 ChatFormatting.GOLD + "Nyra Client"
         );
     }
-
 }
