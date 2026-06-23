@@ -5,7 +5,7 @@ mod.group = "de.constt.nyra.client"
 mod.version = "0.0.1"
 
 deps.fabric_loader = "0.19.2"
-deps.imgui_version = "1.90.00"
+deps.imgui_version = "1.92.0"
 loomx.loom_version = "1.17-SNAPSHOT"
 
 

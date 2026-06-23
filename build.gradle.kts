@@ -44,10 +44,10 @@ dependencies {
 
     fun includeImplementation(
         notation: String,
-        configure: (ExternalModuleDependency.() -> Unit)? = null
+        configure: ExternalModuleDependency.() -> Unit = {}
     ) {
         val dep = create(notation) as ExternalModuleDependency
-        configure?.invoke(dep)
+        configure(dep)
         add("implementation", dep)
         add("include", dep)
     }
@@ -61,6 +61,17 @@ dependencies {
     implementation("com.kohlschutter.junixsocket:junixsocket-common:2.6.0")
     implementation("com.kohlschutter.junixsocket:junixsocket-native-common:2.6.0")
     implementation("com.kohlschutter.junixsocket:junixsocket-core:2.6.0")
+
+    // IMGUI
+    includeImplementation("io.github.spair:imgui-java-binding:${property("deps.imgui_version")}")
+    includeImplementation("io.github.spair:imgui-java-lwjgl3:${property("deps.imgui_version")}") {
+        exclude(group = "org.lwjgl")
+        exclude(group = "org.lwjgl.lwjgl")
+    }
+
+    includeImplementation("io.github.spair:imgui-java-natives-windows:${property("deps.imgui_version")}")
+    includeImplementation("io.github.spair:imgui-java-natives-linux:${property("deps.imgui_version")}")
+    includeImplementation("io.github.spair:imgui-java-natives-macos:${property("deps.imgui_version")}")
 }
 
 loom {
