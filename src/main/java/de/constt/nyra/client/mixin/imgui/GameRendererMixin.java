@@ -22,6 +22,7 @@ public class GameRendererMixin {
 
     @Inject(method = "render", at = @At("RETURN"))
     private void render(DeltaTracker tickCounter, boolean tick, CallbackInfo ci) {
+        //~ if <26.2 'gui.screen()' -> 'screen'
         if (minecraft.gui.screen() instanceof final RenderInterface renderInterface) {
             ImGuiImpl.beginImGuiRendering();
             renderInterface.render(ImGui.getIO());

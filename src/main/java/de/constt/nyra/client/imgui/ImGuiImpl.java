@@ -1,7 +1,10 @@
+/*
+ * This file is part of fabric-imgui-example-mod - https://github.com/florianreuth/fabric-imgui-example-mod
+ * by Florian Reuth and contributors
+ */
 package de.constt.nyra.client.imgui;
 
 import com.mojang.blaze3d.opengl.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
 import imgui.*;
 import imgui.extension.implot.ImPlot;
 import imgui.flag.ImGuiConfigFlags;
@@ -9,12 +12,10 @@ import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.pipeline.RenderTarget;
-import com.mojang.blaze3d.opengl.GlTexture;
 import org.apache.commons.io.IOUtils;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11C;
 import org.lwjgl.opengl.GL30;
-import org.lwjgl.opengl.GL30C;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,10 +37,12 @@ public final class ImGuiImpl {
         data.setIniFilename("nyra.ini");
 
         // If you want to have custom fonts, you can use the following code here
-        //final ImFont defaultFont = loadFont("/fonts/YourFont.ttf", 16);
+        // final ImFont defaultFont = loadFont("/fonts/YourFont.ttf", 16);
         // In ImGui windows, you can set the font like this:
-        //ImGui.pushFont(defaultFont);
-        //ImGui.popFont();
+        /* Push and pop font code imgui (fabric-imgui-example-mod)
+        ImGui.pushFont(defaultFont);
+        ImGui.popFont();
+         */
 
         data.setConfigFlags(ImGuiConfigFlags.DockingEnable);
 
@@ -52,10 +55,9 @@ public final class ImGuiImpl {
 
     public static void beginImGuiRendering() {
         // Minecraft will not bind the framebuffer unless it is needed, so do it manually and hope Vulcan never gets real:tm:
+        //~ if <26.2 '.gameRenderer.mainRenderTarget()' -> '.getMainRenderTarget()'
         final RenderTarget framebuffer = Minecraft.getInstance().gameRenderer.mainRenderTarget();
-        assert framebuffer.getColorTexture() != null;
-        GlStateManager._glBindFramebuffer(GL30C.GL_FRAMEBUFFER, ((GlTexture) framebuffer.getColorTexture()).glId(/*(RenderSystem.getDevice().getDeviceInfo().backendName()), null)*/));
-
+        // GlStateManager._glBindFramebuffer(GL30C.GL_FRAMEBUFFER, ((GlTexture) framebuffer.getColorTexture()).getFbo(((GlDevice) RenderSystem.getDevice().backend).directStateAccess(), null)); // 1: Cannot resolve method 'getFbo' in 'GlTexture' // 2: 'com.mojang.blaze3d.opengl.GlDevice' is not public in 'com.mojang.blaze3d.opengl'. Cannot be accessed from outside package // 3: 'backend' has private access in 'com.mojang.blaze3d.systems.GpuDevice'
         GL11C.glViewport(0, 0, framebuffer.width, framebuffer.height);
 
         imGuiImplGl3.newFrame();
