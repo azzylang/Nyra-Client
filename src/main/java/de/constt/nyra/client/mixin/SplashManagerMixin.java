@@ -23,6 +23,7 @@ public abstract class SplashManagerMixin {
     @Inject(method = "getSplash", at = @At("HEAD"), cancellable = true)
     private void onApply(CallbackInfoReturnable<SplashRenderer> cir) {
         String splash = splashes.get(random.nextInt(splashes.size()));
+        //~ if <1.21.11 'Component.literal(splash)' -> 'splash'
         cir.setReturnValue(new SplashRenderer(Component.literal(splash)));
     }
 
