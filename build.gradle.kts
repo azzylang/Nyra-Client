@@ -58,9 +58,9 @@ dependencies {
     include(discordJar)
 
     // Junixsocket
-    implementation("com.kohlschutter.junixsocket:junixsocket-common:2.6.0")
-    implementation("com.kohlschutter.junixsocket:junixsocket-native-common:2.6.0")
-    implementation("com.kohlschutter.junixsocket:junixsocket-core:2.6.0")
+    implementation("com.kohlschutter.junixsocket:junixsocket-common:2.10.1")
+    implementation("com.kohlschutter.junixsocket:junixsocket-native-common:2.10.1")
+    implementation("com.kohlschutter.junixsocket:junixsocket-core:2.10.1")
 
     // IMGUI
     includeImplementation("io.github.spair:imgui-java-binding:${property("deps.imgui_version")}")
