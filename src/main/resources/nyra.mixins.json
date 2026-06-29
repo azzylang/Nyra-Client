@@ -7,8 +7,6 @@
   },
   "client": [
     "SplashManagerMixin",
-    "TitleScreenMixin",
-    "imgui.GameRendererMixin",
-    "imgui.MinecraftMixin"
+    "TitleScreenMixin"
   ]
 }

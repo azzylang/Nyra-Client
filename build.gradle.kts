@@ -26,6 +26,12 @@ repositories {
     strictMaven("https://www.cursemaven.com", "CurseForge", "curse.maven")
     strictMaven("https://api.modrinth.com/maven", "Modrinth", "maven.modrinth")
 
+    strictMaven("https://maven.ryanhcode.dev", "Ryan's Maven", "maven.ryans")
+
+    maven("https://maven.ryanhcode.dev/releases") {
+        name = "RyanHCode Maven"
+    }
+
     flatDir {
         dirs("lib")
     }
@@ -63,15 +69,8 @@ dependencies {
     implementation("com.kohlschutter.junixsocket:junixsocket-core:2.10.1")
 
     // IMGUI
-    includeImplementation("io.github.spair:imgui-java-binding:${property("deps.imgui_version")}")
-    includeImplementation("io.github.spair:imgui-java-lwjgl3:${property("deps.imgui_version")}") {
-        exclude(group = "org.lwjgl")
-        exclude(group = "org.lwjgl.lwjgl")
-    }
-
-    includeImplementation("io.github.spair:imgui-java-natives-windows:${property("deps.imgui_version")}")
-    includeImplementation("io.github.spair:imgui-java-natives-linux:${property("deps.imgui_version")}")
-    includeImplementation("io.github.spair:imgui-java-natives-macos:${property("deps.imgui_version")}")
+    include("foundry.imguimc:imguimc-fabric-${sc.properties.rawOrNull("mod", "imgui_mc_version")}:${sc.properties.rawOrNull("mod", "imgui_version")}")
+    modImplementation("foundry.imguimc:imguimc-fabric-${sc.properties.rawOrNull("mod", "imgui_mc_version")}:${sc.properties.rawOrNull("mod", "imgui_version")}")
 }
 
 loom {
