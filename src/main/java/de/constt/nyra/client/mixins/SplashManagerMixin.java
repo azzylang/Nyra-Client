@@ -1,4 +1,4 @@
-package de.constt.nyra.client.mixin;
+package de.constt.nyra.client.mixins;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.SplashRenderer;

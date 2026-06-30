@@ -1,6 +1,8 @@
-package de.constt.nyra.client.mixin;
+package de.constt.nyra.client.mixins;
 
+import de.constt.nyra.client.screens.BaseScreen;
 import de.constt.nyra.client.screens.ExampleScreen;
+import de.constt.nyra.client.screens.ModulesScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
@@ -27,8 +29,8 @@ public class TitleScreenMixin extends Screen {
 
     @Inject(method = "init", at = @At("RETURN"))
     public void render(CallbackInfo ci) {
-        this.addRenderableWidget(Button.builder(Component.literal("ImGui Demo"), (button) -> {
-            Minecraft.getInstance().setScreenAndShow(new ExampleScreen());
+        this.addRenderableWidget(Button.builder(Component.literal("Modules Screen"), (button) -> {
+            Minecraft.getInstance().setScreenAndShow(new ModulesScreen());
         }).bounds(this.width - 75 - 3, 3, 70, 20).build());
     }
 }

@@ -24,15 +24,9 @@ public final class ExampleScreen extends Screen {
                     ImGui.end();
                 }
 
-                ImGui.showDemoWindow(showDemoWindow);;
+                ImGui.showDemoWindow(showDemoWindow);
             }
         }
         super.extractRenderState(graphics, mouseX, mouseY, a);
     }
-
-    @Override
-    public boolean isPauseScreen() {
-        return false; // Only relevant in singleplayer
-    }
-
 }

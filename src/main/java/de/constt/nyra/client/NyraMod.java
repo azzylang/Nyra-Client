@@ -1,8 +1,10 @@
 package de.constt.nyra.client;
 
 import com.jagrosh.discordipc.IPCClient;
+import de.constt.nyra.client.clientcommands.CCommandManager;
 import de.constt.nyra.client.discordRpc.DiscordIPCCore;
 import de.constt.nyra.client.managers.EventManager;
+import de.constt.nyra.client.roots.modules.ModuleManager;
 import de.constt.nyra.client.utils.InstanceUtils;
 import de.constt.nyra.client.utils.MessageUtils;
 import net.fabricmc.api.ClientModInitializer;
@@ -25,6 +27,12 @@ public class NyraMod implements ClientModInitializer {
 
         // -- Events --
         EventManager.registerEvents();
+
+        // -- Modules --
+        ModuleManager.init();
+
+        // -- Commands --
+        CCommandManager.init();
 
         // Check if DiscordIPC class loaded
         try {

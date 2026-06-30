@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "de.constt.nyra.client.mixin",
+  "package": "de.constt.nyra.client.mixins",
   "compatibilityLevel": "${java}",
   "injectors": {
     "defaultRequire": 1

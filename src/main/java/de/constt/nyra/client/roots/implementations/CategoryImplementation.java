@@ -9,7 +9,6 @@ public class CategoryImplementation {
         PLAYER,
         EXPLOITS,
         WORLD,
-        EVENTS,
-        HUD_ELEMENT
+        EVENTS
     }
 }

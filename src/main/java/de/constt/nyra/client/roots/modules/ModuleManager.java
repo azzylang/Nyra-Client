@@ -1,6 +1,9 @@
 package de.constt.nyra.client.roots.modules;
 
+import de.constt.nyra.client.annotations.ModuleInfoAnnotation;
+import de.constt.nyra.client.roots.implementations.CategoryImplementation;
 import de.constt.nyra.client.roots.implementations.ModuleImplementation;
+import de.constt.nyra.client.roots.modules.render.FullbrightModule;
 import de.constt.nyra.client.utils.ModuleCacheUtils;
 
 import java.util.ArrayList;
@@ -11,6 +14,9 @@ public class ModuleManager {
 
     public static void init() {
         // MODULES
+
+        // RENDER
+        MODULES.add(new FullbrightModule());
 
         ModuleCacheUtils.loadAll();
     }
@@ -46,5 +52,9 @@ public class ModuleManager {
         if (module != null) {
             module.toggle();
         }
+    }
+
+    public static CategoryImplementation.Categories getCategory(Class<?> clazz) {
+        return clazz.getAnnotation(ModuleInfoAnnotation.class).category();
     }
 }
