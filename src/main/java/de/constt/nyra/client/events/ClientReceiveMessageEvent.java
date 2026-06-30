@@ -2,6 +2,7 @@ package de.constt.nyra.client.events;
 
 import de.constt.nyra.client.clientcommands.CCommandManager;
 import de.constt.nyra.client.utils.CommandAnnotationUtils;
+import de.constt.nyra.client.utils.MessageUtils;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;

@@ -9,6 +9,7 @@ import de.constt.nyra.client.utils.InstanceUtils;
 import de.constt.nyra.client.utils.MessageUtils;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ public class NyraMod implements ClientModInitializer {
         LOGGER.info("Nyra {} for MC {} initializing...", VERSION, MINECRAFT);
 
         // -- Variable Setting --
-        MessageUtils.setPrefix("Nyra");
+        MessageUtils.setPrefix(Component.literal("Nyra"));
 
         // -- Events --
         EventManager.registerEvents();
