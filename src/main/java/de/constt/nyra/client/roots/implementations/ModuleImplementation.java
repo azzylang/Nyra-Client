@@ -1,5 +1,6 @@
 package de.constt.nyra.client.roots.implementations;
 
+import de.constt.nyra.client.roots.implementations.settings.BooleanSettingImplementation;
 import de.constt.nyra.client.utils.ModuleAnnotationUtils;
 import de.constt.nyra.client.utils.ModuleCacheUtils;
 import net.minecraft.network.protocol.Packet;
@@ -14,6 +15,10 @@ public abstract class ModuleImplementation {
     protected boolean enabled = false;
     public int keyBindingCode = GLFW.GLFW_KEY_UNKNOWN;
     private final Map<String, SettingImplementation<?>> settings = new HashMap<>();
+
+    protected ModuleImplementation() {
+        registerSetting(new BooleanSettingImplementation("Disable on toggle", false));
+    }
 
     protected void registerSetting(SettingImplementation<?> setting) {
         settings.put(setting.getName(), setting);
@@ -38,8 +43,16 @@ public abstract class ModuleImplementation {
     }
 
     public void toggle() {
+        BooleanSettingImplementation disableOnToggle =
+                (BooleanSettingImplementation) getSetting("Disable on toggle");
 
         if (enabled) {
+            if (disableOnToggle != null && disableOnToggle.get()) {
+                enabled = false;
+                onDisable();
+                ModuleCacheUtils.saveModule(this);
+                return;
+            }
             enabled = false;
             onDisable();
             ModuleCacheUtils.saveModule(this);
