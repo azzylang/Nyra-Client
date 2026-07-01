@@ -13,6 +13,9 @@ public class ClickGuiCommand extends CommandImplementation {
     @Override
     public void executeCommand(String[] parts) {
         super.executeCommand(parts);
-        Minecraft.getInstance().setScreenAndShow(new ModulesScreen());
+
+        Minecraft.getInstance().execute(() -> {
+            Minecraft.getInstance().setScreenAndShow(new ModulesScreen());
+        });
     }
 }

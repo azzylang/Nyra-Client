@@ -5,8 +5,6 @@ import de.constt.nyra.client.roots.implementations.CategoryImplementation;
 import de.constt.nyra.client.roots.implementations.ModuleImplementation;
 import de.constt.nyra.client.roots.implementations.settings.DoubleSettingImplementation;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 
 
 @ModuleInfoAnnotation(
@@ -38,9 +36,11 @@ public class FullbrightModule extends ModuleImplementation {
 
     private static double getDefaultGamma() {
         return 0.5F;
-    };
+    }
 
     private static void setGamma(double gamma) {
-        Minecraft.getInstance().options.gamma().set(gamma);
-    };
+        if (Minecraft.getInstance().options != null) {
+            Minecraft.getInstance().options.gamma().set(gamma);
+        }
+    }
 }
