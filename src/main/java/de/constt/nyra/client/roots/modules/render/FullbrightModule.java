@@ -3,6 +3,7 @@ package de.constt.nyra.client.roots.modules.render;
 import de.constt.nyra.client.annotations.ModuleInfoAnnotation;
 import de.constt.nyra.client.roots.implementations.CategoryImplementation;
 import de.constt.nyra.client.roots.implementations.ModuleImplementation;
+import de.constt.nyra.client.roots.implementations.settings.DoubleSettingImplementation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -15,29 +16,31 @@ import net.minecraft.world.effect.MobEffects;
         internalModuleName = "fullbright"
 )
 public class FullbrightModule extends ModuleImplementation {
+    private final DoubleSettingImplementation gammaSetting;
+
+    public FullbrightModule() {
+        gammaSetting = new DoubleSettingImplementation("Gamma", 0.5F, 0.0F, 1F);
+
+        registerSetting(gammaSetting);
+    }
+
     @Override
     public void onEnable() {
-        enableNightVision();
+        setGamma(gammaSetting.get());
         super.onEnable();
     }
 
     @Override
     public void onDisable() {
-        disableNightVision();
+        setGamma(getDefaultGamma());
         super.onDisable();
     }
 
-    public static void enableNightVision() {
-        Minecraft client = Minecraft.getInstance();
-        if (client.player != null) {
-            client.player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 1_000_000, 0, false, false, false));
-        }
-    }
+    private static double getDefaultGamma() {
+        return 0.5F;
+    };
 
-    public static void disableNightVision() {
-        Minecraft client = Minecraft.getInstance();
-        if (client.player != null) {
-            client.player.removeEffect(MobEffects.NIGHT_VISION);
-        }
-    }
+    private static void setGamma(double gamma) {
+        Minecraft.getInstance().options.gamma().set(gamma);
+    };
 }
